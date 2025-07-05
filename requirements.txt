@@ -3,3 +3,4 @@ ccxt
 pandas
 numpy
 matplotlib
+mplfinance
