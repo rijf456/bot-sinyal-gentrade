@@ -239,6 +239,15 @@ def detect(df):
     if 'adx' in last and last['adx'] < 20:
         reasons.append('Weak Trend (ADX<20)')
         signal = None
+    # MA breakout
+if last['close'] > last['ema12'] and last['close'] > last['ema26']:
+    sig = 'bull'; reasons.append('MA Breakout')
+elif last['close'] < last['ema12'] and last['close'] < last['ema26']:
+    sig = 'bear'; reasons.append('MA Breakdown')
+
+# Volume spike
+if last['volume'] > 2 * last['vol_avg']:
+    reasons.append('Volume Spike')  
     return signal, reasons
 
 # === CHART PREMIUM ===
