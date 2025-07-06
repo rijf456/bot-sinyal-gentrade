@@ -1,0 +1,6 @@
+ccxt
+requests
+pandas
+numpy
+matplotlib
+mplfinance
