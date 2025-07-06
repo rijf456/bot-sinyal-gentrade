@@ -428,6 +428,31 @@ def rekap_mingguan():
         send_message(pesan)
     except Exception as e:
         send_message(f"[ERROR] Rekap gagal: {e}")
+        
+def buat_grafik_rekap():
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from datetime import datetime, timedelta
+    import os
+
+    df = pd.read_csv("sinyal_history.csv", parse_dates=["time"])
+    akhir = datetime.now()
+    awal = akhir - timedelta(days=7)
+    df = df[(df["time"] >= awal) & (df["time"] <= akhir)]
+
+    hasil = df["result"].value_counts()
+
+    fig, ax = plt.subplots(figsize=(6, 4))
+    hasil.plot(kind='bar', color=['green', 'red'], ax=ax)
+    ax.set_title("Rekap Win/Loss Mingguan")
+    ax.set_ylabel("Jumlah Sinyal")
+    ax.grid(alpha=0.3)
+
+    filename = "rekap_weekly_chart.png"
+    plt.tight_layout()
+    plt.savefig(filename)
+    plt.close()
+    return filename
 
 # === HANDLER COMMAND PREMIUM ===
 def handle_command(text, chat_id=CHAT_ID):
@@ -469,6 +494,9 @@ Fitur Premium:
         elif text == '/rekap':
             send_message("📊 Menghitung rekap mingguan...")
             threading.Thread(target=rekap_mingguan).start()
+            img_path = buat_grafik_rekap()
+            send_chart(img_path, "📈 Grafik Rekap Mingguan")
+            os.remove(img_path)
             return True
         elif text.startswith('/setmodal'):
             try:
