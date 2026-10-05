@@ -17,9 +17,9 @@ logging.basicConfig(
 )
 
 # === KONFIGURASI BOT ===
-TOKEN = os.getenv('GENTRADE_BOT_TOKEN') or '7613368831:AAEDKVY9bJimfFgjehAXYXXUB0z6riXtGbw'
+TOKEN = os.getenv('GENTRADE_BOT_TOKEN') or ''
 BASE_URL = f'https://api.telegram.org/bot{TOKEN}'
-CHAT_ID = os.getenv('GENTRADE_BOT_CHATID') or '6709995631'
+CHAT_ID = os.getenv('GENTRADE_BOT_CHATID') or ''
 
 SPOT_SYMBOLS = ['BTC/USDT', 'ETH/USDT', 'SOL/USDT']
 FUTURES_SYMBOLS = ['FET/USDT', 'OP/USDT', 'ARB/USDT', 'VIRTUAL/USDT']
